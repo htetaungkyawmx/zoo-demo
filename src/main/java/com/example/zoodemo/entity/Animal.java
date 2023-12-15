@@ -1,18 +1,13 @@
 package com.example.zoodemo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-/*
-*
-1.directionality - unit, bi
-2.ownership - who is owner(
-*
-* */
+
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -20,13 +15,15 @@ import lombok.Setter;
 public class Animal extends IdClass{
     private String type;
     private int totalNum;
-    @OneToOne @JoinColumn(name = "cage_id_fk")
-//    @JoinColumn(name = "cage_id_fk")
+    @OneToOne(mappedBy = "animal",
+    cascade = CascadeType.ALL,
+    orphanRemoval = true)
     private Cage cage;
-
-    public Animal(String type) {
-        this.type = type;
-    }
+    @ManyToOne
+    private Category category;
+    @ManyToMany
+    private List<FoodItem> foodItems=
+            new ArrayList<>();
 
     public Animal(String type, int totalNum) {
         this.type = type;

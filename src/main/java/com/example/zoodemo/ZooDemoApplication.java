@@ -19,8 +19,13 @@ public class ZooDemoApplication  implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         zooService.createDb();
+        zooService.createAnimalsWithCategory();
+        zooService.insertNewAnimal();
+        zooService.removeLastAnimal();
         JPAUtil.checkData("select * from animal");
         JPAUtil.checkData("select * from cage");
-
+        JPAUtil.checkData("select * from category");
+        JPAUtil.checkData("select * from supplier");
+        JPAUtil.checkData("select * from food_item");
     }
 }
